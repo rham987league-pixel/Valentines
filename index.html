@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will You Be My Valentine?</title>
+
+  <!-- Roman Elegant Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+
+      /* YOUR background */
+      background: url("imgs/TT.gif") no-repeat center/cover;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      padding: 55px 45px;
+      border-radius: 35px;
+      text-align: center;
+      max-width: 460px;
+      width: 90%;
+      box-shadow: 0px 15px 40px rgba(0,0,0,0.2);
+    }
+
+    /* Cat bouquet image */
+    .bouquet {
+      width: 170px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 45px;
+      color: #e91e63;
+      margin: 10px 0;
+    }
+
+    p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    button {
+      border: none;
+      padding: 14px 45px;
+      font-size: 18px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      font-weight: 500;
+    }
+
+    #yesBtn {
+      background: #ff2d7a;
+      color: white;
+      box-shadow: 0px 8px 20px rgba(255, 45, 122, 0.4);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.08);
+      background: #e91e63;
+    }
+
+    #noBtn {
+      background: #e0e0e0;
+      color: black;
+      position: relative;
+    }
+
+    #message {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #e91e63;
+      font-weight: 600;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #e91e63;
+      opacity: 0.7;
+    }
+
+    
+
+    /* Floating hearts animation */
+    .heart {
+      position: absolute;
+      font-size: 22px;
+      animation: floatUp 3s linear forwards;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-600px);
+        opacity: 0;
+      }
+    }
+
+    .card {
+  /* Keep all your existing card styles, then add: */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.heart-burst {
+  animation: heartBurst 0.5s ease;
+}
+
+@keyframes heartBurst {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Main Card -->
+  <div class="card" id="card">
+
+    <!-- YOUR Cat Bouquet -->
+    <img src="imgs/CatMs.png" class="bouquet">
+
+    <h1>Joyce, Will you be my Valentine?</h1>
+    <p>pleaassss 😢 </p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes! 💖</button>
+      <button id="noBtn">No 😢</button>
+    </div>
+
+    <div id="message"></div>
+
+    <footer>Made with 💗 for you</footer>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+    const card = document.getElementById("card");
+
+    const noMessages = [
+      "Sure ka na?? 😳",
+      "Please don’t say no 😭",
+      "Bawal, Try mo ulit hehe 💕",
+      "Don’t break my heart 💔",
+      "Last chance 😅"
+    ];
+
+    let count = 0;
+
+    // No button moves away
+    noBtn.addEventListener("click", () => {
+      count++;
+      message.textContent = noMessages[count % noMessages.length];
+
+      const x = Math.floor(Math.random() * 250) - 120;
+      const y = Math.floor(Math.random() * 250) - 120;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    // Yes button clicked
+    
+   // Yes button clicked
+yesBtn.addEventListener("click", () => {
+  card.classList.add("heart-burst");
+  
+  setTimeout(() => {
+    card.classList.add("fade-out");
+    
+    setTimeout(() => {
+      card.innerHTML = `
+        <img src="imgs/happy-cat.gif" class="bouquet">
+        <h1>YESSSSS!! 💖</h1>
+        <p>Sabi ko na love moko eh! 🥰</p>
+        <p>You are my Valentine forever 💐</p>
+      `;
+      card.classList.remove("fade-out", "heart-burst");
+      card.classList.add("fade-in");
+      startHearts();
+    }, 600);
+  }, 500);
+});
+
+    // Floating hearts
+    function startHearts() {
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "💗";
+       
+
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = "100vh";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+      }, 250);
+    }
+  </script>
+
+</body>
+</html>
